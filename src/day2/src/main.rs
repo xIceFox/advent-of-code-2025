@@ -1,6 +1,3 @@
-use std::fs::File;
-use std::io::{BufRead, BufReader};
-
 mod tests;
 
 /*fn is_invalid_id(id: u64) -> bool {
@@ -41,7 +38,7 @@ mod tests;
     }
 }*/
 
-fn matches_pattern(pattern : &str, string: &String) -> bool{
+fn matches_pattern(pattern : &str, string: &str) -> bool{
     let pattern_char = pattern.chars().collect::<Vec<char>>();
     let string_chars = string.chars().collect::<Vec<char>>();
 
@@ -58,7 +55,7 @@ fn is_invalid_id_part1(id: u64) -> bool {
     let s = id.to_string();
     let len = s.len();
 
-    if len % 2 != 0 {
+    if !len.is_multiple_of(2) {
         return false;
     }
 
@@ -71,8 +68,8 @@ fn is_invalid_id_part2(id: u64) -> bool {
     let s = id.to_string();
     let len = s.len();
 
-    for pattern_len in 1..len/2{
-        if len % pattern_len != 0 {
+    for pattern_len in 1..=len/2{
+        if !len.is_multiple_of(pattern_len) {
             continue;
         }
 
@@ -87,11 +84,11 @@ fn is_invalid_id_part2(id: u64) -> bool {
 }
 
 fn main() {
-    let mut result: Vec<u64> = vec![];
-
     const PATH: &str = "src/day2/input.txt";
-    let file = File::open(PATH).expect(&*format!("File not found: {0}", PATH));
-    let lines = BufReader::new(file).lines();
+    let lines = core::read_lines(PATH).unwrap();
+
+    let mut result_part1: u64 = 0;
+    let mut result_part2: u64 = 0;
     for line in lines {
         if line.is_err(){
             continue;
@@ -117,15 +114,17 @@ fn main() {
             let finish = finish_result.unwrap();
 
             for num in start..finish+1 {
-                if !is_invalid_id_part2(num) {
-                    continue;
+                if is_invalid_id_part1(num) {
+                    result_part1+= num;
                 }
 
-                result.push(num);
+                if is_invalid_id_part2(num) {
+                    result_part2+= num;
+                }
             }
         }
     }
 
-    println!("{:?}", result);
-    println!("Sum: {}", result.iter().sum::<u64>())
+    println!("{}", result_part1);
+    println!("{}", result_part2);
 }

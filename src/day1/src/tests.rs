@@ -1,8 +1,8 @@
 #[cfg(test)]
 mod tests {
-    use crate::dial::dial::Dial;
-    use crate::dial::direction::Direction;
-    use crate::dial::instruction::Instruction;
+    use crate::dial_mod::dial::Dial;
+    use crate::dial_mod::direction::Direction;
+    use crate::dial_mod::instruction::Instruction;
 
     #[test]
     fn test_l75_r20() {

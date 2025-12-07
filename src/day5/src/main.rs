@@ -1,10 +1,8 @@
 use std::cmp::max;
-use std::fs::File;
-use std::io::{BufRead, BufReader};
 
-struct Interval{
+struct Interval {
     pub start: u64,
-    pub end: u64
+    pub end: u64,
 }
 
 struct IntervalTree {
@@ -41,7 +39,7 @@ impl IntervalTree {
     }
 
     pub fn merge(&self) -> Vec<Interval> {
-        let mut list : Vec<Interval> = vec![];
+        let mut list: Vec<Interval> = vec![];
         if let Some(ref root) = self.start_node {
             root.merge(&mut list);
         }
@@ -120,22 +118,24 @@ impl IntervalNode {
             return true;
         }
 
-        if let Some(ref left) = self.left {
-            if left.max_end >= x {
-                return left.contains(x);
-            }
+        if let Some(ref left) = self.left
+            && left.max_end >= x
+            && left.contains(x)
+        {
+            return true;
         }
 
-        if let Some(ref right) = self.right {
-            if right.max_end >= x {
-                return right.contains(x);
-            }
+        if let Some(ref right) = self.right
+            && right.max_end >= x
+            && right.contains(x)
+        {
+            return true;
         }
 
         false
     }
 
-    pub fn merge(&self, list: &mut Vec<Interval>){
+    pub fn merge(&self, list: &mut Vec<Interval>) {
         if let Some(left) = self.left.as_ref() {
             left.merge(list);
         }
@@ -145,15 +145,15 @@ impl IntervalNode {
             if last.end + 1 >= self.start {
                 last.end = max(last.end, self.end);
             } else {
-                list.push(Interval{
+                list.push(Interval {
                     start: self.start,
-                    end: self.end
+                    end: self.end,
                 })
             }
         } else {
-            list.push(Interval{
+            list.push(Interval {
                 start: self.start,
-                end: self.end
+                end: self.end,
             })
         }
 
@@ -267,12 +267,11 @@ impl IntervalNode {
 }
 
 fn main() {
-    const PATH: &str = "src/day5/src/input.txt";
-    let file = File::open(PATH).expect(&*format!("File not found: {0}", PATH));
-    let lines = BufReader::new(file).lines();
+    const PATH: &str = "src/day5/input.txt";
+    let lines = core::read_lines(PATH).unwrap();
 
     let mut tree = IntervalTree::new();
-    let mut fresh : u32 = 0;
+    let mut fresh: u32 = 0;
 
     let mut ranges: bool = true;
     for line in lines {
@@ -284,11 +283,12 @@ fn main() {
 
         if unwrapped.is_empty() {
             ranges = false;
+            tree.print();
             continue;
         }
 
         if ranges {
-            let split : Vec<&str> = unwrapped.split("-").collect();
+            let split: Vec<&str> = unwrapped.split("-").collect();
             let start = split[0].parse::<u64>().unwrap();
             let end = split[1].parse::<u64>().unwrap();
 
@@ -305,11 +305,7 @@ fn main() {
 
     println!("Fresh: {}", fresh);
 
-    let items: u64 = tree
-        .merge()
-        .iter()
-        .map(|x| x.end-x.start+1)
-        .sum();
+    let items: u64 = tree.merge().iter().map(|x| x.end - x.start + 1).sum();
 
     println!("Total unique fresh items {}", items);
 }

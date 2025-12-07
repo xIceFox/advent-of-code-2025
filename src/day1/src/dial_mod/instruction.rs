@@ -1,4 +1,4 @@
-use crate::dial::direction::Direction;
+use crate::dial_mod::direction::Direction;
 
 pub(crate) struct Instruction {
     pub(crate) direction: Direction,

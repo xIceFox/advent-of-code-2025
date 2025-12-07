@@ -1,5 +1,5 @@
-use crate::dial::direction::Direction;
-use crate::dial::instruction::Instruction;
+use crate::dial_mod::direction::Direction;
+use crate::dial_mod::instruction::Instruction;
 
 pub(crate) struct Dial {
     pub(crate) position: u8,

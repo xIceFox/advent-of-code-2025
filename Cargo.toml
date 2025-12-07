@@ -1,5 +1,8 @@
 [workspace]
 resolver = "3"
-members = [
-    "src/day1", "src/day2", "src/day3", "src/day4", "src/day5",
+members = ["src/core",
+    "src/day1", "src/day2", "src/day3", "src/day4", "src/day5", "src/day6", "src/day7",
 ]
+
+[workspace.dependencies]
+core = {path = "src/core"}

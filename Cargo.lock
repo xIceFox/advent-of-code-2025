@@ -3,21 +3,54 @@
 version = 4
 
 [[package]]
+name = "core"
+version = "0.1.0"
+
+[[package]]
 name = "day1"
 version = "0.1.0"
+dependencies = [
+ "core",
+]
 
 [[package]]
 name = "day2"
 version = "0.1.0"
+dependencies = [
+ "core",
+]
 
 [[package]]
 name = "day3"
 version = "0.1.0"
+dependencies = [
+ "core",
+]
 
 [[package]]
 name = "day4"
 version = "0.1.0"
+dependencies = [
+ "core",
+]
 
 [[package]]
 name = "day5"
 version = "0.1.0"
+dependencies = [
+ "core",
+]
+
+[[package]]
+name = "day6"
+version = "0.1.0"
+dependencies = [
+ "core",
+]
+
+[[package]]
+name = "day7"
+version = "0.1.0"
+dependencies = [
+ "core",
+]

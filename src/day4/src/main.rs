@@ -1,6 +1,3 @@
-use std::fs::File;
-use std::io::{BufRead, BufReader};
-
 struct Grid {
     grid: Vec<Vec<bool>>,
     width: usize,
@@ -27,7 +24,7 @@ impl Grid {
     }
 
     fn get_adjacent(&self, x: usize, y: usize) -> Vec<bool> {
-        vec![
+        [
             (-1, -1),
             (0, -1),
             (1, -1),
@@ -104,7 +101,7 @@ impl Grid {
             let removed_count = self.remove_accessible();
             total_removed += removed_count;
 
-            if removed_count <= 0 {
+            if removed_count == 0 {
                 break;
             }
         }
@@ -113,9 +110,8 @@ impl Grid {
 }
 
 fn main() {
-    const PATH: &str = "src/day4/src/input.txt";
-    let file = File::open(PATH).expect(&*format!("File not found: {0}", PATH));
-    let lines = BufReader::new(file).lines();
+    const PATH: &str = "src/day4/input.txt";
+    let lines = core::read_lines(PATH).unwrap();
 
     let mut grid: Grid = Grid::new(
         lines

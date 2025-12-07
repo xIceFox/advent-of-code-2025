@@ -1,6 +1,3 @@
-use std::fs::File;
-use std::io::{BufRead, BufReader};
-
 struct Bank {
     slots: Vec<BatterySlot>,
     on_count: usize,
@@ -84,18 +81,17 @@ impl Battery {
 }
 
 fn run(file_path: &str, turn_on_count: usize) -> u64 {
-    let file = File::open(file_path).expect(&*format!("File not found: {0}", file_path));
-    let lines = BufReader::new(file).lines();
+    let lines = core::read_lines(file_path).unwrap();
 
     let mut banks: Vec<Bank> = lines
         .map_while(Result::ok)
         .map(|x| {
             x.chars()
                 .filter_map(|x| x.to_digit(10))
-                .map(|x| Battery::new(x))
+                .map(Battery::new)
                 .collect()
         })
-        .map(|x| Bank::new(x))
+        .map(Bank::new)
         .collect();
 
     banks.iter_mut().for_each(|x| x.turn_on(turn_on_count));

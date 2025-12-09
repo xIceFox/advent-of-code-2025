@@ -267,7 +267,7 @@ impl IntervalNode {
 }
 
 fn main() {
-    const PATH: &str = "src/day5/input.txt";
+    const PATH: &str = "src/day5/input_example.txt";
     let lines = core::read_lines(PATH).unwrap();
 
     let mut tree = IntervalTree::new();

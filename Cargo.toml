@@ -1,7 +1,7 @@
 [workspace]
 resolver = "3"
 members = ["src/core",
-    "src/day1", "src/day2", "src/day3", "src/day4", "src/day5", "src/day6", "src/day7",
+    "src/day1", "src/day2", "src/day3", "src/day4", "src/day5", "src/day6", "src/day7", "src/day8",
 ]
 
 [workspace.dependencies]

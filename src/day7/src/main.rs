@@ -86,7 +86,7 @@ impl Grid {
 }
 
 fn main() -> ExitCode {
-    const PATH: &str = "src/day7/input_example.txt";
+    const PATH: &str = "src/day7/input.txt";
     let lines = core::read_lines(PATH).unwrap();
 
     let mut starts: Vec<(i64, i64)> = vec![];
@@ -182,6 +182,8 @@ fn main() -> ExitCode {
         }
         beams = next_beams;
     }
+
+    grid.print();
 
     println!("Split count: {}", split_count);
     println!("Timeline count: {}", timeline_count);

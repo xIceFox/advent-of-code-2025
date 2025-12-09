@@ -112,7 +112,7 @@ mod tests {
     use crate::run;
 
     #[test]
-    fn test_example_part1(){
+    fn test_example_part1() {
         const PATH: &str = "input_example.txt";
         let total_joltage = run(PATH, 2);
         assert_eq!(total_joltage, 357);
@@ -126,7 +126,7 @@ mod tests {
     }
 
     #[test]
-    fn test_example_part2(){
+    fn test_example_part2() {
         const PATH: &str = "input_example.txt";
         let total_joltage = run(PATH, 12);
         assert_eq!(total_joltage, 3121910778619);

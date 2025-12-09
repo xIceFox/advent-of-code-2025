@@ -1,4 +1,5 @@
 pub mod math;
+pub mod datastructures;
 
 use std::fs::File;
 use std::io;

@@ -121,7 +121,6 @@ fn main() -> ExitCode {
         return ExitCode::FAILURE;
     }
 
-
     let mut beams: HashMap<(i64, i64), u64> = HashMap::new();
     let mut split_count: u32 = 0;
     let mut timeline_count = 0;
@@ -169,9 +168,9 @@ fn main() -> ExitCode {
                     grid.change(&splitter_left_coordinates, Element::Beam);
                     grid.change(&splitter_right_coordinates, Element::Beam);
                     split_count += 1;
-                    continue
+                    continue;
                 }
-                Element::Beam => {},
+                Element::Beam => {}
                 _ => panic!("Hit wrong element, we are doomed!"),
             }
 

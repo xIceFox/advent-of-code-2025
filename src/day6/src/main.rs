@@ -23,9 +23,9 @@ impl Problem {
             Operation::Multiply => 1,
         };
 
-        self.numbers.iter().fold(initial_accumulator, |acc, num| {
-            operation.apply(acc, *num)
-        })
+        self.numbers
+            .iter()
+            .fold(initial_accumulator, |acc, num| operation.apply(acc, *num))
     }
 
     fn add_number(&mut self, number: u64) {
@@ -106,12 +106,7 @@ fn main() {
         }
     }
 
-    let result: u64 = problems
-        .iter()
-        .map(|problem| {
-            problem.solve()
-        })
-        .sum();
+    let result: u64 = problems.iter().map(|problem| problem.solve()).sum();
 
     println!("Result: {}", result);
 
@@ -129,12 +124,12 @@ fn main() {
     let mut number_stack: Vec<u64> = vec![];
     let mut total = 0_u64;
 
-    for x in (0..line_length).rev(){
+    for x in (0..line_length).rev() {
         let mut multiplier = 1;
         let mut num = 0_u32;
-        for y in (0..grid.len()-1).rev() {
+        for y in (0..grid.len() - 1).rev() {
             let digit_char = grid[y][x];
-            if digit_char == ' '{
+            if digit_char == ' ' {
                 continue;
             }
 
@@ -147,7 +142,7 @@ fn main() {
             number_stack.push(num as u64);
         }
 
-        let operation_char = grid[grid.len()-1][x];
+        let operation_char = grid[grid.len() - 1][x];
         if operation_char == ' ' {
             continue;
         }
@@ -159,7 +154,7 @@ fn main() {
             Operation::Multiply => 1,
         };
 
-        while let Some(number) = number_stack.pop(){
+        while let Some(number) = number_stack.pop() {
             acc = operation.apply(acc, number);
         }
         total += acc;

@@ -21,7 +21,7 @@ impl Dial {
             Direction::Left => -(instruction.steps as i32),
             Direction::Right => instruction.steps as i32,
         };
-        
+
         let pos_start = self.position as i32;
         let pos_after = pos_start + steps;
 

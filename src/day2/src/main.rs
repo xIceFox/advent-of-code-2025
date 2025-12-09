@@ -38,12 +38,12 @@ mod tests;
     }
 }*/
 
-fn matches_pattern(pattern : &str, string: &str) -> bool{
+fn matches_pattern(pattern: &str, string: &str) -> bool {
     let pattern_char = pattern.chars().collect::<Vec<char>>();
     let string_chars = string.chars().collect::<Vec<char>>();
 
-    for i in  0..string_chars.len(){
-        if string_chars[i] != pattern_char[i % pattern_char.len()]  {
+    for i in 0..string_chars.len() {
+        if string_chars[i] != pattern_char[i % pattern_char.len()] {
             return false;
         }
     }
@@ -59,7 +59,7 @@ fn is_invalid_id_part1(id: u64) -> bool {
         return false;
     }
 
-    let (left, right) = s.split_at(len/2);
+    let (left, right) = s.split_at(len / 2);
 
     left == right
 }
@@ -68,15 +68,15 @@ fn is_invalid_id_part2(id: u64) -> bool {
     let s = id.to_string();
     let len = s.len();
 
-    for pattern_len in 1..=len/2{
+    for pattern_len in 1..=len / 2 {
         if !len.is_multiple_of(pattern_len) {
             continue;
         }
 
         let (pattern, _) = s.split_at(pattern_len);
 
-        if matches_pattern(pattern, &s){
-            return true
+        if matches_pattern(pattern, &s) {
+            return true;
         }
     }
 
@@ -90,7 +90,7 @@ fn main() {
     let mut result_part1: u64 = 0;
     let mut result_part2: u64 = 0;
     for line in lines {
-        if line.is_err(){
+        if line.is_err() {
             continue;
         }
 
@@ -113,13 +113,13 @@ fn main() {
             let start = start_result.unwrap();
             let finish = finish_result.unwrap();
 
-            for num in start..finish+1 {
+            for num in start..finish + 1 {
                 if is_invalid_id_part1(num) {
-                    result_part1+= num;
+                    result_part1 += num;
                 }
 
                 if is_invalid_id_part2(num) {
-                    result_part2+= num;
+                    result_part2 += num;
                 }
             }
         }

@@ -2,24 +2,22 @@ use std::fmt::{Display, Formatter};
 use std::ops::{Add, Sub};
 
 #[derive(Debug, Hash, PartialEq, Eq, Clone, Copy)]
-pub struct Point3D {
+pub struct Point2D {
     pub x: i64,
     pub y: i64,
-    pub z: i64,
 }
 
-impl Point3D {
-    pub fn new(x: i64, y: i64, z: i64) -> Self {
-        Self { x, y, z }
+impl Point2D {
+    pub fn new(x: i64, y: i64) -> Self {
+        Self { x, y}
     }
 
-    pub fn parse(str: &str) -> Result<Point3D, String> {
+    pub fn parse(str: &str) -> Result<Point2D, String> {
         let split: Vec<&str> = str.split(',').collect();
-        if let [x, y, z] = split[..] {
+        if let [x, y] = split[..] {
             Ok(Self {
                 x: x.parse().map_err(|_| format!("Invalid x: {}", x))?,
                 y: y.parse().map_err(|_| format!("Invalid y: {}", y))?,
-                z: z.parse().map_err(|_| format!("Invalid z: {}", z))?,
             })
         } else {
             Err(format!("Wrong input format: {}, expected x,y,z", str))
@@ -35,65 +33,60 @@ impl Point3D {
         Self {
             x: self.x.pow(exponent),
             y: self.y.pow(exponent),
-            z: self.z.pow(exponent),
         }
     }
 
     pub fn sum(&self) -> i64 {
-        self.x + self.y + self.z
+        self.x + self.y
     }
 }
 
-impl Sub for Point3D {
+impl Sub for Point2D {
     type Output = Self;
 
     fn sub(self, other: Self) -> Self::Output {
         Self {
             x: self.x - other.x,
             y: self.y - other.y,
-            z: self.z - other.z,
         }
     }
 }
 
-impl Sub for &Point3D {
-    type Output = Point3D;
+impl Sub for &Point2D {
+    type Output = Point2D;
 
     fn sub(self, other: Self) -> Self::Output {
         Self::Output {
             x: self.x - other.x,
             y: self.y - other.y,
-            z: self.z - other.z,
         }
     }
 }
 
-impl Add for Point3D {
+impl Add for Point2D {
     type Output = Self;
 
     fn add(self, other: Self) -> Self::Output {
         Self {
             x: self.x + other.x,
             y: self.y + other.y,
-            z: self.z + other.z,
         }
     }
 }
 
-impl Add for &Point3D {
-    type Output = Point3D;
+impl Add for &Point2D {
+    type Output = Point2D;
 
     fn add(self, other: Self) -> Self::Output {
         Self::Output {
             x: self.x + other.x,
             y: self.y + other.y,
-            z: self.z + other.z,
         }
     }
 }
 
-impl Display for Point3D {
+impl Display for Point2D {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{{x: {}, y: {}, z: {}}}", self.x, self.y, self.z)
+        write!(f, "{{x: {}, y: {}}}", self.x, self.y)
     }
 }

@@ -82,7 +82,7 @@ impl Grid {
                     if self.is_accessible(x, y) {
                         print!("x");
                         removed_count += 1;
-                        self.remove(x,y);
+                        self.remove(x, y);
                     } else {
                         print!("@");
                     }
@@ -95,9 +95,9 @@ impl Grid {
         removed_count
     }
 
-    fn remove_all(&mut self) -> usize{
+    fn remove_all(&mut self) -> usize {
         let mut total_removed = 0;
-        loop{
+        loop {
             let removed_count = self.remove_accessible();
             total_removed += removed_count;
 

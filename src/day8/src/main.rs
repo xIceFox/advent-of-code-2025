@@ -4,10 +4,10 @@ use std::collections::{BinaryHeap, HashMap};
 
 struct UnionFind {
     parent: Vec<usize>,
-    group_count: usize
+    group_count: usize,
 }
 
-impl UnionFind{
+impl UnionFind {
     pub fn new(size: usize) -> Self {
         let mut parent = Vec::with_capacity(size);
 
@@ -15,7 +15,10 @@ impl UnionFind{
             parent.push(i);
         }
 
-        Self { parent , group_count: size}
+        Self {
+            parent,
+            group_count: size,
+        }
     }
 
     pub fn find(&mut self, x: usize) -> usize {
@@ -25,7 +28,7 @@ impl UnionFind{
         self.parent[x]
     }
 
-    pub fn union(&mut self, x: usize, y: usize){
+    pub fn union(&mut self, x: usize, y: usize) {
         let rootx = self.find(x);
         let rooty = self.find(y);
 
@@ -40,7 +43,7 @@ impl UnionFind{
 struct DistanceItem {
     distance: f64,
     index_first: usize,
-    index_second: usize
+    index_second: usize,
 }
 
 impl Eq for DistanceItem {}
@@ -75,11 +78,11 @@ fn main() {
 
     let mut heap: BinaryHeap<Reverse<DistanceItem>> = BinaryHeap::new();
     for idx_outer in 0..points.len() {
-        for idx_inner in idx_outer+1..points.len() {
+        for idx_inner in idx_outer + 1..points.len() {
             let distance_item = DistanceItem {
                 distance: points[idx_outer].distance(&points[idx_inner]),
                 index_first: idx_outer,
-                index_second: idx_inner
+                index_second: idx_inner,
             };
             heap.push(Reverse(distance_item))
         }
@@ -87,7 +90,7 @@ fn main() {
 
     let mut groups: UnionFind = UnionFind::new(points.len());
 
-    for _ in 0..1000{
+    for _ in 0..1000 {
         let distance_item = heap.pop().unwrap().0;
 
         groups.union(distance_item.index_first, distance_item.index_second);
